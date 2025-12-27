@@ -11,8 +11,7 @@ numpy
 torch==2.9.1
 sentence-transformers==2.2.2
 transformers==4.42.0
-tokenizers==0.13.3
-
+tokenizers==0.19.2
 
 
 
