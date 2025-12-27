@@ -7,9 +7,11 @@ pypdf
 psycopg2-binary
 pydantic
 python-dotenv
-torch==2.2.0+cpu
+numpy
+torch==2.9.1
 sentence-transformers==2.2.2
 transformers==4.42.0
-numpy
+
+
 
 
