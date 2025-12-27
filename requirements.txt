@@ -5,8 +5,11 @@ qdrant-client
 google-generativeai
 pypdf
 psycopg2-binary
-qdrant-client
 pydantic
 python-dotenv
-sentence-transformers>=2.2.2
-torch>=2.0.0
+torch==2.2.0+cpu
+sentence-transformers==2.2.2
+transformers==4.42.0
+numpy
+
+
