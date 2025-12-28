@@ -1,66 +1,61 @@
-from transformers import AutoTokenizer, AutoModelForCausalLM
-import torch
+import requests
 
-model_name = "Qwen/Qwen2.5-0.5B-Instruct"
-
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForCausalLM.from_pretrained(
-    model_name,
-    dtype=torch.float32
-).to("cpu")
-
+# HF Qwen Space endpoint
+QWEN_API = "https://muaazasif-qwen-book-chatbot.hf.space/chat"
 
 def generate_answer(question: str, context: str) -> str:
     """
-    Strict document-based answer generation.
-    Returns 'Not found in document' if the context does not contain answer clues.
+    Strict document-based answer generation using HF Qwen Space API.
+    Returns 'Not found in document' if context does not contain answer clues.
+    Cleans output to remove prompt instructions or repeated lines.
     """
-    
-    # Guard: check if question keywords exist in context
-    question_keywords = [word.lower() for word in question.split()]
-    context_lower = context.lower()
-    if not any(kw in context_lower for kw in question_keywords):
-        return "Not found in document"
 
-    # Prompt strictly instructing LLM to use ONLY context
+    # Build strict prompt
     prompt = f"""
 You are a strict document-based assistant.
 Answer ONLY using the context below.
-Do NOT use prior knowledge or add any information not present in the context.
+Summarize in MAXIMUM 3 sentences.
+Do NOT repeat any sentences.
+Do NOT include headings or chapter numbers.
 If the answer is not present in the context, reply exactly:
 Not found in document.
 
-CONTEXT:
+Context:
 {context}
 
-QUESTION:
+Question:
 {question}
 
-FINAL ANSWER:
+Answer:
 """
 
-    inputs = tokenizer(
-        prompt,
-        return_tensors="pt",
-        truncation=True,
-        max_length=2048
-    ).to(model.device)
+    try:
+        # Call Qwen Space API
+        res = requests.post(QWEN_API, params={"prompt": prompt}, timeout=60)
+        raw_answer = res.json().get("response", "No response from Qwen.")
 
-    output = model.generate(
-        **inputs,
-        max_new_tokens=120,
-        do_sample=False,        # deterministic
-        temperature=0.0,        # no randomness
-        repetition_penalty=1.1,
-        eos_token_id=tokenizer.eos_token_id,
-        pad_token_id=tokenizer.eos_token_id
-    )
+        # --- Clean the response ---
+        # Take text after "Answer:" if present
+        if "Answer:" in raw_answer:
+            answer_text = raw_answer.split("Answer:")[-1].strip()
+        else:
+            answer_text = raw_answer.strip()
 
-    answer = tokenizer.decode(output[0], skip_special_tokens=True)
-    answer_text = answer.split("FINAL ANSWER:")[-1].strip()
+        # Remove any leftover instruction phrases
+        for phrase in [
+            "You are a strict document-based assistant",
+            "Do NOT repeat any sentences",
+            "Summarize in MAXIMUM 3 sentences",
+            "Do NOT include headings or chapter numbers",
+            "If the answer is not present in the context, reply exactly"
+        ]:
+            answer_text = answer_text.replace(phrase, "").strip()
 
-    # Extra guard: if none of the answer words appear in context, return strict 'Not found'
-    if not any(word.lower() in context_lower for word in answer_text.split()):
-        return "Not found in document"
+        # Fallback if empty
+        if not answer_text:
+            answer_text = "Not found in document"
 
-    return answer_text
+        return answer_text
+
+    except Exception as e:
+        return f"Error contacting Qwen: {str(e)}"
