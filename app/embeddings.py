@@ -1,5 +1,8 @@
-from InstructorEmbedding import INSTRUCTOR
+# app/embeddings.py
+from sentence_transformers import SentenceTransformer
 
-model = INSTRUCTOR("hkunlp/instructor-small")  # small & fast, CPU
-def embed(text: str):
-    return model.encode(text)
+# Lightweight, public, CPU-friendly model
+model = SentenceTransformer("all-MiniLM-L6-v2")  
+
+def embed(text: str) -> list[float]:
+    return model.encode(text).tolist()

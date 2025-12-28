@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-from embeddings import embed
-from llm import generate_answer
+from .embeddings import embed          # ✅ relative import inside package
+from .llm import generate_answer  
 from qdrant_client import QdrantClient
 from dotenv import load_dotenv
 import os
