@@ -6,6 +6,7 @@ uvicorn==0.23.2
 python-dotenv==1.2.1
 pydantic==2.12.5
 requests==2.31.0
+beautifulsoup4==4.12.2
 
 # ----------------------------
 # Qdrant client
@@ -15,22 +16,21 @@ qdrant-client==1.16.2
 # ----------------------------
 # PDF processing
 # ----------------------------
-pypdf==6.5.0
+PyPDF2==3.1.0
 
 # ----------------------------
-# NLP + embeddings (lightweight)
+# NLP + embeddings
 # ----------------------------
 sentence-transformers==2.2.2
-nltk==3.9.2
 sentencepiece==0.2.1
+nltk==3.9.2
 
 # ----------------------------
-# Torch CPU-only (ultra-light)
+# Torch (GPU capable)
 # ----------------------------
 torch==2.8.0
 transformers==4.57.3
 tokenizers>=0.22,<0.23
-
 
 # ----------------------------
 # Utilities
