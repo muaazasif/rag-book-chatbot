@@ -11,13 +11,13 @@ qdrant-client==1.16.2
 # PDF processing
 pypdf==6.5.0
 
-# NLP + embeddings
-sentence-transformers>=2.2.2
+# NLP + embeddings (lightweight versions)
+sentence-transformers==2.2.2
 nltk==3.9.2
 sentencepiece==0.2.1
 
-# Torch compatible with Python 3.13+
-torch==2.9.1
+# Torch CPU only (much smaller)
+torch==2.9.1+cpu
 transformers==4.57.3
 tokenizers>=0.22,<0.23
 
