@@ -20,9 +20,8 @@ pypdf==6.5.0
 # -------------------------------
 # NLP / embeddings (CPU, lightweight)
 # -------------------------------
-instructor-embedding==2.0.0
+InstructorEmbedding==1.0.1
 numpy>=1.25.0
-
 nltk==3.9.2
 sentencepiece==0.2.1
 
