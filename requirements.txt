@@ -1,28 +1,39 @@
+# ----------------------------
 # Core FastAPI + server
+# ----------------------------
 fastapi==0.101.0
 uvicorn==0.23.2
 python-dotenv==1.2.1
 pydantic==2.12.5
 requests==2.31.0
 
+# ----------------------------
 # Qdrant client
+# ----------------------------
 qdrant-client==1.16.2
 
+# ----------------------------
 # PDF processing
+# ----------------------------
 pypdf==6.5.0
 
-# NLP + embeddings (compatible with Python 3.13)
+# ----------------------------
+# NLP + embeddings (lightweight)
+# ----------------------------
 sentence-transformers==2.2.2
 nltk==3.9.2
 sentencepiece==0.2.1
 
-# torch downgrade for smaller image
-torch==2.8.0
+# ----------------------------
+# Torch CPU-only (ultra-light)
+# ----------------------------
+torch==2.8.0+cpu
 transformers==4.57.3
 tokenizers>=0.22,<0.23
 
-
+# ----------------------------
 # Utilities
+# ----------------------------
 numpy>=1.25.0
 scikit-learn==1.8.0
 scipy==1.16.3
