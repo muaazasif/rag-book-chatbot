@@ -35,7 +35,9 @@ client = QdrantClient(
 
 class QuestionRequest(BaseModel):
     question: str
-
+@app.get("/")
+def root():
+    return {"status": "Backend is alive"}
 @app.post("/ask")
 def ask_question(req: QuestionRequest):
     vector = embed(req.question)
