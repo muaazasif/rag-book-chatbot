@@ -16,10 +16,11 @@ sentence-transformers==2.2.2
 nltk==3.9.2
 sentencepiece==0.2.1
 
-# Torch (latest compatible version for Python 3.13)
-torch==2.9.1
+# torch downgrade for smaller image
+torch==2.8.0
 transformers==4.57.3
 tokenizers>=0.22,<0.23
+
 
 # Utilities
 numpy>=1.25.0
