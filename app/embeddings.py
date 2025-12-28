@@ -1,8 +1,11 @@
-# app/embeddings.py
-from sentence_transformers import SentenceTransformer
+# embeddings.py
+import requests
+import os
 
-# Lightweight, public, CPU-friendly model
-model = SentenceTransformer("all-MiniLM-L6-v2")  
+HF_TOKEN = os.getenv("HF_TOKEN")
+API_URL = "https://router.huggingface.co/hf-inference/models/sentence-transformers/all-MiniLM-L6-v2"
 
-def embed(text: str) -> list[float]:
-    return model.encode(text).tolist()
+def embed(text: str):
+    headers = {"Authorization": f"Bearer {HF_TOKEN}"}
+    res = requests.post(API_URL, headers=headers, json={"inputs": text})
+    return res.json()[0]

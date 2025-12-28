@@ -1,41 +1,6 @@
-# -------------------------------
-# Core FastAPI + server
-# -------------------------------
-fastapi==0.101.0
-uvicorn==0.23.2
-python-dotenv==1.2.1
-pydantic==2.12.5
-requests==2.31.0
-
-# -------------------------------
-# Qdrant client
-# -------------------------------
-qdrant-client==1.16.2
-
-# -------------------------------
-# PDF processing
-# -------------------------------
-pypdf==6.5.0
-
-# -------------------------------
-# NLP / embeddings (CPU, lightweight)
-# -------------------------------
-# NLP / embeddings
-sentence-transformers==2.2.2
-nltk==3.9.2
-sentencepiece==0.2.1
-numpy>=1.25.0
-
-
-# -------------------------------
-# Utilities
-# -------------------------------
-numpy>=1.25.0
-scikit-learn==1.8.0
-scipy==1.16.3
-tqdm==4.67.1
-
-# -------------------------------
-# Transformers local removed (HF API used)
-# -------------------------------
-# torch / transformers removed to save build size
+fastapi
+uvicorn
+requests
+python-dotenv
+qdrant-client
+pydantic
