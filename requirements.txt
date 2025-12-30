@@ -4,3 +4,4 @@ requests
 python-dotenv
 qdrant-client
 pydantic
+huggingface_hub>=0.24.0
