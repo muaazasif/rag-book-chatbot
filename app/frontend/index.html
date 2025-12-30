@@ -29,9 +29,9 @@ async function ask() {
     document.getElementById("messages").innerHTML +=
         `<div class='msg user'>You: ${q}</div>`;
 
-    const res = await fetch("rag-book-chatboting-production.up.railway.app/ask", {
+    const res = await fetch("rag-book-chatboting-production.up.railway.app", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json","Accept": "application/json"  },
         body: JSON.stringify({ question: q })
     });
 
